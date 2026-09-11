@@ -34,6 +34,14 @@ class Settings:
     retrieval_min_relevance: float = float(
         os.getenv("RETRIEVAL_MIN_RELEVANCE", "0.45")
     )
+    deepseek_api_key: str = os.getenv("DEEPSEEK_API_KEY", "").strip()
+    deepseek_base_url: str = os.getenv(
+        "DEEPSEEK_BASE_URL", "https://api.deepseek.com"
+    ).strip()
+    deepseek_model: str = os.getenv("DEEPSEEK_MODEL", "deepseek-flash").strip()
+    llm_temperature: float = float(os.getenv("LLM_TEMPERATURE", "0.1"))
+    llm_max_tokens: int = int(os.getenv("LLM_MAX_TOKENS", "800"))
+    rag_max_context_chars: int = int(os.getenv("RAG_MAX_CONTEXT_CHARS", "6000"))
 
     def validate(self) -> None:
         if not self.collection_name:
@@ -50,6 +58,16 @@ class Settings:
             raise ValueError("RETRIEVAL_TOP_K必须大于0")
         if not 0.0 <= self.retrieval_min_relevance <= 1.0:
             raise ValueError("RETRIEVAL_MIN_RELEVANCE必须在0到1之间")
+        if not self.deepseek_base_url:
+            raise ValueError("DEEPSEEK_BASE_URL不能为空")
+        if not self.deepseek_model:
+            raise ValueError("DEEPSEEK_MODEL不能为空")
+        if not 0.0 <= self.llm_temperature <= 2.0:
+            raise ValueError("LLM_TEMPERATURE必须在0到2之间")
+        if self.llm_max_tokens < 1:
+            raise ValueError("LLM_MAX_TOKENS必须大于0")
+        if self.rag_max_context_chars < 500:
+            raise ValueError("RAG_MAX_CONTEXT_CHARS不能小于500")
 
 
 settings = Settings()

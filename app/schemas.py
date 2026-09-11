@@ -75,3 +75,28 @@ class RetrievalHit(BaseModel):
 class RetrievalResult(BaseModel):
     query: str
     hits: list[RetrievalHit] = Field(default_factory=list)
+
+
+class AnswerDraft(BaseModel):
+    """大模型必须返回的结构；citation_indices对应检索上下文编号。"""
+
+    answer: str
+    citation_indices: list[int] = Field(default_factory=list)
+    insufficient_context: bool = False
+
+
+class AnswerCitation(BaseModel):
+    citation_index: int = Field(ge=1)
+    chunk_id: str
+    filename: str
+    source_path: str
+    page: int | None = Field(default=None, ge=1)
+    relevance_score: float = Field(ge=0.0, le=1.0)
+    excerpt: str
+
+
+class RAGAnswer(BaseModel):
+    query: str
+    answer: str
+    refused: bool
+    citations: list[AnswerCitation] = Field(default_factory=list)
