@@ -30,6 +30,10 @@ class Settings:
     embedding_batch_size: int = int(
         os.getenv("EMBEDDING_BATCH_SIZE", "32")
     )
+    retrieval_top_k: int = int(os.getenv("RETRIEVAL_TOP_K", "5"))
+    retrieval_min_relevance: float = float(
+        os.getenv("RETRIEVAL_MIN_RELEVANCE", "0.45")
+    )
 
     def validate(self) -> None:
         if not self.collection_name:
@@ -42,6 +46,10 @@ class Settings:
             raise ValueError("CHUNK_OVERLAP必须小于CHUNK_SIZE")
         if self.embedding_batch_size < 1:
             raise ValueError("EMBEDDING_BATCH_SIZE必须大于0")
+        if self.retrieval_top_k < 1:
+            raise ValueError("RETRIEVAL_TOP_K必须大于0")
+        if not 0.0 <= self.retrieval_min_relevance <= 1.0:
+            raise ValueError("RETRIEVAL_MIN_RELEVANCE必须在0到1之间")
 
 
 settings = Settings()
