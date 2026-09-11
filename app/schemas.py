@@ -56,3 +56,22 @@ class IngestionResult(BaseModel):
     files_skipped: int = 0
     chunks_written: int = 0
     errors: list[str] = Field(default_factory=list)
+
+
+class RetrievalHit(BaseModel):
+    """通过相关度阈值的单条知识片段。"""
+
+    chunk_id: str
+    content: str
+    relevance_score: float = Field(ge=0.0, le=1.0)
+    document_id: str
+    filename: str
+    source_path: str
+    file_type: FileType
+    page: int | None = Field(default=None, ge=1)
+    chunk_index: int = Field(ge=0)
+
+
+class RetrievalResult(BaseModel):
+    query: str
+    hits: list[RetrievalHit] = Field(default_factory=list)

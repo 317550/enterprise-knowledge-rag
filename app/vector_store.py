@@ -6,7 +6,7 @@ from typing import Literal
 import chromadb
 
 from app.embeddings import EmbeddingProvider
-from app.schemas import TextChunk
+from app.schemas import FileType, RetrievalHit, TextChunk
 
 
 SyncAction = Literal["inserted", "replaced", "skipped"]
@@ -81,3 +81,55 @@ class ChromaVectorStore:
 
     def count(self) -> int:
         return self.collection.count()
+
+    def similarity_search(
+        self,
+        query_embedding: list[float],
+        top_k: int,
+        min_relevance: float,
+    ) -> list[RetrievalHit]:
+        if not query_embedding:
+            raise ValueError("查询向量不能为空")
+        if top_k < 1:
+            raise ValueError("top_k必须大于0")
+        if not 0.0 <= min_relevance <= 1.0:
+            raise ValueError("min_relevance必须在0到1之间")
+        if self.collection.count() == 0:
+            return []
+
+        result = self.collection.query(
+            query_embeddings=[query_embedding],
+            n_results=min(top_k, self.collection.count()),
+            include=["documents", "metadatas", "distances"],
+        )
+        ids = (result.get("ids") or [[]])[0]
+        documents = (result.get("documents") or [[]])[0]
+        metadatas = (result.get("metadatas") or [[]])[0]
+        distances = (result.get("distances") or [[]])[0]
+
+        hits: list[RetrievalHit] = []
+        for chunk_id, content, metadata, distance in zip(
+            ids, documents, metadatas, distances, strict=True
+        ):
+            if content is None or metadata is None or distance is None:
+                continue
+            # collection使用cosine空间：distance越小越相似。
+            # 将其转成便于业务理解的[0, 1]相关度并处理浮点边界。
+            relevance = max(0.0, min(1.0, 1.0 - float(distance)))
+            if relevance < min_relevance:
+                continue
+            page_value = int(metadata.get("page", 0))
+            hits.append(
+                RetrievalHit(
+                    chunk_id=chunk_id,
+                    content=content,
+                    relevance_score=round(relevance, 6),
+                    document_id=str(metadata["document_id"]),
+                    filename=str(metadata["filename"]),
+                    source_path=str(metadata["source_path"]),
+                    file_type=FileType(str(metadata["file_type"])),
+                    page=page_value or None,
+                    chunk_index=int(metadata["chunk_index"]),
+                )
+            )
+        return hits

@@ -1,0 +1,42 @@
+"""命令行检索入口：python -m scripts.search_knowledge "退货期限是多久？"""
+
+import argparse
+
+from app.config import settings
+from app.embeddings import SentenceTransformerEmbeddingProvider
+from app.retrieval_service import RetrievalService
+from app.vector_store import ChromaVectorStore
+
+
+def build_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(description="检索企业知识库")
+    parser.add_argument("query", help="需要检索的问题")
+    parser.add_argument("--top-k", type=int, default=None)
+    parser.add_argument("--min-relevance", type=float, default=None)
+    return parser
+
+
+def main() -> None:
+    args = build_parser().parse_args()
+    service = RetrievalService(
+        embedder=SentenceTransformerEmbeddingProvider(
+            settings.embedding_model,
+            settings.embedding_batch_size,
+        ),
+        vector_store=ChromaVectorStore(
+            settings.vector_db_dir,
+            settings.collection_name,
+        ),
+        default_top_k=settings.retrieval_top_k,
+        default_min_relevance=settings.retrieval_min_relevance,
+    )
+    result = service.retrieve(
+        args.query,
+        top_k=args.top_k,
+        min_relevance=args.min_relevance,
+    )
+    print(result.model_dump_json(indent=2))
+
+
+if __name__ == "__main__":
+    main()
