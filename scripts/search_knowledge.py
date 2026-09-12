@@ -3,9 +3,7 @@
 import argparse
 
 from app.config import settings
-from app.embeddings import SentenceTransformerEmbeddingProvider
-from app.retrieval_service import RetrievalService
-from app.vector_store import ChromaVectorStore
+from app.service_factory import build_hybrid_retrieval_service
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -18,18 +16,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 def main() -> None:
     args = build_parser().parse_args()
-    service = RetrievalService(
-        embedder=SentenceTransformerEmbeddingProvider(
-            settings.embedding_model,
-            settings.embedding_batch_size,
-        ),
-        vector_store=ChromaVectorStore(
-            settings.vector_db_dir,
-            settings.collection_name,
-        ),
-        default_top_k=settings.retrieval_top_k,
-        default_min_relevance=settings.retrieval_min_relevance,
-    )
+    service = build_hybrid_retrieval_service(settings)
     result = service.retrieve(
         args.query,
         top_k=args.top_k,

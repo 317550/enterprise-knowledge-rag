@@ -70,6 +70,23 @@ class RetrievalHit(BaseModel):
     file_type: FileType
     page: int | None = Field(default=None, ge=1)
     chunk_index: int = Field(ge=0)
+    vector_score: float | None = Field(default=None, ge=0.0, le=1.0)
+    bm25_score: float | None = Field(default=None, ge=0.0)
+    rrf_score: float | None = Field(default=None, ge=0.0)
+    rerank_score: float | None = Field(default=None, ge=0.0, le=1.0)
+
+
+class IndexedChunk(BaseModel):
+    """从向量库读取、供词法索引使用的原始文本块。"""
+
+    chunk_id: str
+    content: str
+    document_id: str
+    filename: str
+    source_path: str
+    file_type: FileType
+    page: int | None = Field(default=None, ge=1)
+    chunk_index: int = Field(ge=0)
 
 
 class RetrievalResult(BaseModel):

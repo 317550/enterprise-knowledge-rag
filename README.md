@@ -1,6 +1,6 @@
 # 企业智能知识库 RAG 系统
 
-当前版本完成文档入库、语义检索和带来源引用的RAG答案生成。系统在没有可靠知识片段或模型引用无效时拒绝回答，避免把模型猜测伪装成企业制度。
+当前版本完成文档入库、混合检索、交叉编码器精排和带来源引用的RAG答案生成。系统在没有可靠知识片段或模型引用无效时拒绝回答，避免把模型猜测伪装成企业制度。
 
 ## 第一阶段架构
 
@@ -37,7 +37,7 @@ python -m pip install -r requirements.txt
 copy .env.example .env
 ```
 
-首次执行真实入库时，Sentence Transformers会下载`BAAI/bge-small-zh-v1.5`。模型文件可能较大，请保证网络和磁盘空间充足。
+首次执行真实入库时，Sentence Transformers会下载`cross-encoder/mmarco-mMiniLMv2-L12-H384-v1`。模型文件可能较大，请保证网络和磁盘空间充足。
 
 ## 执行入库
 
@@ -76,9 +76,16 @@ python -m scripts.search_knowledge "商品签收后多久可以退货？"
 python -m scripts.search_knowledge "物流通常需要几天？" --top-k 3 --min-relevance 0.4
 ```
 
-结果会返回命中的正文、相关度、文件名、路径、页码和文本块序号。
-Chroma 的 cosine distance 越小越相似，本项目用
-`relevance_score = 1 - distance` 转成越大越相关的分数，并限制在 `[0, 1]`。
+检索管道会先分别执行BGE稠密召回和BM25关键词召回，使用RRF融合两路排名，再由CrossEncoder对候选进行精排。结果会返回正文、来源元数据以及`vector_score`、`bm25_score`、`rrf_score`和`rerank_score`。这些字段是不同阶段的检索分数，不是概率，也不能直接横向比较。
+
+第一次执行检索时会额外下载`cross-encoder/mmarco-mMiniLMv2-L12-H384-v1`。可以在`.env`中配置：
+
+```env
+HYBRID_CANDIDATE_K=20
+RRF_K=60
+RERANK_MODEL=cross-encoder/mmarco-mMiniLMv2-L12-H384-v1
+RERANK_BATCH_SIZE=16
+```
 
 ## 执行问答
 
@@ -110,8 +117,9 @@ python -m scripts.ask_knowledge "物流通常需要几天？" --top-k 3 --min-re
 问答管道：
 
 ```text
-用户问题 → 语义检索 → 阈值过滤 → 上下文编号
-        → DeepSeek结构化生成 → 引用编号校验 → 答案与来源
+用户问题 → BGE与BM25召回 → RRF融合 → CrossEncoder精排
+        → 阈值过滤 → 上下文编号 → DeepSeek结构化生成
+        → 引用编号校验 → 答案与来源
 ```
 
 模型只负责选择检索上下文并生成答案。程序会独立校验引用编号；没有命中、模型主动判断资料不足、引用越界或答案缺少引用标记时，统一返回拒答结果。
@@ -134,6 +142,7 @@ python -m pytest -v
 - 文档变更后清理旧文本块。
 - Top-K检索顺序、来源元数据和相关度阈值；
 - 空知识库、空问题和非法检索参数。
+- BM25词法召回、RRF融合去重和CrossEncoder精排；
 - 带引用答案及来源映射；
 - 无命中时不调用大模型；
 - 模型判定资料不足时拒答；
