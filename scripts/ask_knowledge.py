@@ -3,11 +3,9 @@
 import argparse
 
 from app.config import settings
-from app.embeddings import SentenceTransformerEmbeddingProvider
 from app.llm import DeepSeekChatModel
 from app.rag_service import RAGService
-from app.retrieval_service import RetrievalService
-from app.vector_store import ChromaVectorStore
+from app.service_factory import build_hybrid_retrieval_service
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -20,18 +18,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 def main() -> None:
     args = build_parser().parse_args()
-    embedder = SentenceTransformerEmbeddingProvider(
-        settings.embedding_model, settings.embedding_batch_size
-    )
-    store = ChromaVectorStore(
-        settings.vector_db_dir, settings.collection_name
-    )
-    retrieval_service = RetrievalService(
-        embedder=embedder,
-        vector_store=store,
-        default_top_k=settings.retrieval_top_k,
-        default_min_relevance=settings.retrieval_min_relevance,
-    )
+    retrieval_service = build_hybrid_retrieval_service(settings)
     chat_model = DeepSeekChatModel(
         api_key=settings.deepseek_api_key,
         base_url=settings.deepseek_base_url,

@@ -34,6 +34,12 @@ class Settings:
     retrieval_min_relevance: float = float(
         os.getenv("RETRIEVAL_MIN_RELEVANCE", "0.45")
     )
+    hybrid_candidate_k: int = int(os.getenv("HYBRID_CANDIDATE_K", "20"))
+    rrf_k: int = int(os.getenv("RRF_K", "60"))
+    rerank_model: str = os.getenv(
+        "RERANK_MODEL", "BAAI/bge-reranker-base"
+    ).strip()
+    rerank_batch_size: int = int(os.getenv("RERANK_BATCH_SIZE", "16"))
     deepseek_api_key: str = os.getenv("DEEPSEEK_API_KEY", "").strip()
     deepseek_base_url: str = os.getenv(
         "DEEPSEEK_BASE_URL", "https://api.deepseek.com"
@@ -58,6 +64,14 @@ class Settings:
             raise ValueError("RETRIEVAL_TOP_K必须大于0")
         if not 0.0 <= self.retrieval_min_relevance <= 1.0:
             raise ValueError("RETRIEVAL_MIN_RELEVANCE必须在0到1之间")
+        if self.hybrid_candidate_k < self.retrieval_top_k:
+            raise ValueError("HYBRID_CANDIDATE_K不能小于RETRIEVAL_TOP_K")
+        if self.rrf_k < 1:
+            raise ValueError("RRF_K必须大于0")
+        if not self.rerank_model:
+            raise ValueError("RERANK_MODEL不能为空")
+        if self.rerank_batch_size < 1:
+            raise ValueError("RERANK_BATCH_SIZE必须大于0")
         if not self.deepseek_base_url:
             raise ValueError("DEEPSEEK_BASE_URL不能为空")
         if not self.deepseek_model:

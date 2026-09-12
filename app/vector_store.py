@@ -6,7 +6,7 @@ from typing import Literal
 import chromadb
 
 from app.embeddings import EmbeddingProvider
-from app.schemas import FileType, RetrievalHit, TextChunk
+from app.schemas import FileType, IndexedChunk, RetrievalHit, TextChunk
 
 
 SyncAction = Literal["inserted", "replaced", "skipped"]
@@ -82,6 +82,36 @@ class ChromaVectorStore:
     def count(self) -> int:
         return self.collection.count()
 
+    def list_chunks(self) -> list[IndexedChunk]:
+        """读取全部已入库文本块，供BM25建立与Chroma一致的词法索引。"""
+        if self.collection.count() == 0:
+            return []
+        result = self.collection.get(include=["documents", "metadatas"])
+        ids = result.get("ids") or []
+        documents = result.get("documents") or []
+        metadatas = result.get("metadatas") or []
+
+        chunks: list[IndexedChunk] = []
+        for chunk_id, content, metadata in zip(
+            ids, documents, metadatas, strict=True
+        ):
+            if content is None or metadata is None:
+                continue
+            page_value = int(metadata.get("page", 0))
+            chunks.append(
+                IndexedChunk(
+                    chunk_id=chunk_id,
+                    content=content,
+                    document_id=str(metadata["document_id"]),
+                    filename=str(metadata["filename"]),
+                    source_path=str(metadata["source_path"]),
+                    file_type=FileType(str(metadata["file_type"])),
+                    page=page_value or None,
+                    chunk_index=int(metadata["chunk_index"]),
+                )
+            )
+        return chunks
+
     def similarity_search(
         self,
         query_embedding: list[float],
@@ -124,6 +154,7 @@ class ChromaVectorStore:
                     chunk_id=chunk_id,
                     content=content,
                     relevance_score=round(relevance, 6),
+                    vector_score=round(relevance, 6),
                     document_id=str(metadata["document_id"]),
                     filename=str(metadata["filename"]),
                     source_path=str(metadata["source_path"]),
