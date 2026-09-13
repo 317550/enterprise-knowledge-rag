@@ -30,6 +30,7 @@ def main() -> None:
         retrieval_service=retrieval_service,
         chat_model=chat_model,
         max_context_chars=settings.rag_max_context_chars,
+        max_chunks_per_source=settings.rag_max_chunks_per_source,
     )
     result = service.answer(
         args.query, top_k=args.top_k, min_relevance=args.min_relevance

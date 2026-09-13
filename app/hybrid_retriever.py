@@ -42,6 +42,51 @@ class HybridRetrievalService:
         top_k: int | None = None,
         min_relevance: float | None = None,
     ) -> RetrievalResult:
+        normalized_query, resolved_top_k, threshold = self._resolve_options(
+            query, top_k, min_relevance
+        )
+        candidate_k = max(self.candidate_k, resolved_top_k)
+        fused = self._retrieve_fused(normalized_query, candidate_k)
+        reranked = self.reranker.rerank(
+            normalized_query,
+            fused[:candidate_k],
+            top_n=resolved_top_k,
+        )
+        # 阈值用于判断“这个问题是否有可靠候选”，而不是逐块过滤。
+        # 多来源问题的第二份必要资料分数可能显著低于Top-1；若逐块过滤，
+        # 会在已经确认问题可回答后错误删除补充来源。
+        hits = (
+            reranked
+            if reranked and reranked[0].relevance_score >= threshold
+            else []
+        )
+        return RetrievalResult(query=normalized_query, hits=hits)
+
+    def retrieve_rrf(
+        self,
+        query: str,
+        top_k: int | None = None,
+        min_relevance: float | None = None,
+    ) -> RetrievalResult:
+        """返回RRF融合结果但不执行CrossEncoder，用于消融评测。"""
+
+        normalized_query, resolved_top_k, threshold = self._resolve_options(
+            query, top_k, min_relevance
+        )
+        candidate_k = max(self.candidate_k, resolved_top_k)
+        fused = self._retrieve_fused(normalized_query, candidate_k)
+        hits = [
+            hit for hit in fused[:resolved_top_k]
+            if hit.relevance_score >= threshold
+        ]
+        return RetrievalResult(query=normalized_query, hits=hits)
+
+    def _resolve_options(
+        self,
+        query: str,
+        top_k: int | None,
+        min_relevance: float | None,
+    ) -> tuple[str, int, float]:
         normalized_query = " ".join(query.split())
         if not normalized_query:
             raise ValueError("查询内容不能为空")
@@ -55,8 +100,11 @@ class HybridRetrievalService:
             raise ValueError("top_k必须大于0")
         if not 0.0 <= threshold <= 1.0:
             raise ValueError("min_relevance必须在0到1之间")
+        return normalized_query, resolved_top_k, threshold
 
-        candidate_k = max(self.candidate_k, resolved_top_k)
+    def _retrieve_fused(
+        self, normalized_query: str, candidate_k: int
+    ) -> list[RetrievalHit]:
         vector_hits = self.vector_store.similarity_search(
             query_embedding=self.embedder.embed_query(normalized_query),
             top_k=candidate_k,
@@ -66,14 +114,7 @@ class HybridRetrievalService:
         lexical_hits = self.lexical_retriever.search(
             normalized_query, top_k=candidate_k
         )
-        fused = self._reciprocal_rank_fusion(vector_hits, lexical_hits)
-        reranked = self.reranker.rerank(
-            normalized_query,
-            fused[:candidate_k],
-            top_n=resolved_top_k,
-        )
-        hits = [hit for hit in reranked if hit.relevance_score >= threshold]
-        return RetrievalResult(query=normalized_query, hits=hits)
+        return self._reciprocal_rank_fusion(vector_hits, lexical_hits)
 
     def _reciprocal_rank_fusion(
         self,

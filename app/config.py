@@ -37,7 +37,7 @@ class Settings:
     hybrid_candidate_k: int = int(os.getenv("HYBRID_CANDIDATE_K", "20"))
     rrf_k: int = int(os.getenv("RRF_K", "60"))
     rerank_model: str = os.getenv(
-        "RERANK_MODEL", "BAAI/bge-reranker-base"
+        "RERANK_MODEL", "cross-encoder/mmarco-mMiniLMv2-L12-H384-v1"
     ).strip()
     rerank_batch_size: int = int(os.getenv("RERANK_BATCH_SIZE", "16"))
     deepseek_api_key: str = os.getenv("DEEPSEEK_API_KEY", "").strip()
@@ -48,6 +48,21 @@ class Settings:
     llm_temperature: float = float(os.getenv("LLM_TEMPERATURE", "0.1"))
     llm_max_tokens: int = int(os.getenv("LLM_MAX_TOKENS", "800"))
     rag_max_context_chars: int = int(os.getenv("RAG_MAX_CONTEXT_CHARS", "6000"))
+    rag_max_chunks_per_source: int = int(
+        os.getenv("RAG_MAX_CHUNKS_PER_SOURCE", "2")
+    )
+    evaluation_dataset_path: Path = Path(
+        os.getenv(
+            "EVALUATION_DATASET_PATH",
+            str(BASE_DIR / "evaluation" / "questions.jsonl"),
+        )
+    ).expanduser().resolve()
+    evaluation_results_dir: Path = Path(
+        os.getenv(
+            "EVALUATION_RESULTS_DIR",
+            str(BASE_DIR / "evaluation" / "results"),
+        )
+    ).expanduser().resolve()
 
     def validate(self) -> None:
         if not self.collection_name:
@@ -82,6 +97,8 @@ class Settings:
             raise ValueError("LLM_MAX_TOKENS必须大于0")
         if self.rag_max_context_chars < 500:
             raise ValueError("RAG_MAX_CONTEXT_CHARS不能小于500")
+        if self.rag_max_chunks_per_source < 1:
+            raise ValueError("RAG_MAX_CHUNKS_PER_SOURCE必须大于0")
 
 
 settings = Settings()

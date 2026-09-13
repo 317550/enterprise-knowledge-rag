@@ -5,12 +5,19 @@ from app.embeddings import SentenceTransformerEmbeddingProvider
 from app.hybrid_retriever import HybridRetrievalService
 from app.lexical_retriever import BM25Retriever
 from app.reranker import CrossEncoderReranker
+from app.retrieval_service import RetrievalService
 from app.vector_store import ChromaVectorStore
 
 
 def build_hybrid_retrieval_service(
     config: Settings = settings,
 ) -> HybridRetrievalService:
+    return build_retrieval_services(config)[1]
+
+
+def build_retrieval_services(
+    config: Settings = settings,
+) -> tuple[RetrievalService, HybridRetrievalService]:
     embedder = SentenceTransformerEmbeddingProvider(
         config.embedding_model,
         config.embedding_batch_size,
@@ -24,7 +31,13 @@ def build_hybrid_retrieval_service(
         config.rerank_model,
         config.rerank_batch_size,
     )
-    return HybridRetrievalService(
+    vector_only = RetrievalService(
+        embedder=embedder,
+        vector_store=store,
+        default_top_k=config.retrieval_top_k,
+        default_min_relevance=config.retrieval_min_relevance,
+    )
+    hybrid = HybridRetrievalService(
         embedder=embedder,
         vector_store=store,
         lexical_retriever=lexical,
@@ -34,3 +47,4 @@ def build_hybrid_retrieval_service(
         candidate_k=config.hybrid_candidate_k,
         rrf_k=config.rrf_k,
     )
+    return vector_only, hybrid

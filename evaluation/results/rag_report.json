@@ -1,0 +1,913 @@
+{
+  "total_cases": 39,
+  "answerable_cases": 33,
+  "unanswerable_cases": 6,
+  "answerable_success_rate": 1.0,
+  "refusal_accuracy": 1.0,
+  "citation_precision": 1.0,
+  "citation_recall": 1.0,
+  "keyword_coverage": 1.0,
+  "failed_cases": 0,
+  "cases": [
+    {
+      "case_id": "return-001",
+      "query_type": "semantic",
+      "answerable": true,
+      "refused": false,
+      "expected_sources": [
+        "退换货政策.md"
+      ],
+      "citation_sources": [
+        "退换货政策.md"
+      ],
+      "answer_text": "消费者自签收商品次日起七个自然日内，可以申请无理由退货。[资料1]",
+      "matched_keywords": [
+        "七个自然日",
+        "签收商品次日"
+      ],
+      "missing_keywords": [],
+      "answered_correctly": true,
+      "refusal_correct": null,
+      "citation_precision": 1.0,
+      "citation_recall": 1.0,
+      "keyword_coverage": 1.0,
+      "error": null
+    },
+    {
+      "case_id": "return-002",
+      "query_type": "exact",
+      "answerable": true,
+      "refused": false,
+      "expected_sources": [
+        "退换货政策.md"
+      ],
+      "citation_sources": [
+        "退换货政策.md"
+      ],
+      "answer_text": "根据退换货政策，不适用七天无理由退货的商品包括：定制商品、已激活的软件授权、下载类数字商品，以及因个人使用造成明显损坏的商品[资料1]。",
+      "matched_keywords": [
+        "定制商品",
+        "数字商品"
+      ],
+      "missing_keywords": [],
+      "answered_correctly": true,
+      "refusal_correct": null,
+      "citation_precision": 1.0,
+      "citation_recall": 1.0,
+      "keyword_coverage": 1.0,
+      "error": null
+    },
+    {
+      "case_id": "return-003",
+      "query_type": "semantic",
+      "answerable": true,
+      "refused": false,
+      "expected_sources": [
+        "退换货政策.md"
+      ],
+      "citation_sources": [
+        "退换货政策.md"
+      ],
+      "answer_text": "商品到货时已经破损或存在功能故障的，用户应在签收后四十八小时内提交订单号、问题描述以及清晰照片或视频。[资料2]",
+      "matched_keywords": [
+        "四十八小时",
+        "照片或视频"
+      ],
+      "missing_keywords": [],
+      "answered_correctly": true,
+      "refusal_correct": null,
+      "citation_precision": 1.0,
+      "citation_recall": 1.0,
+      "keyword_coverage": 1.0,
+      "error": null
+    },
+    {
+      "case_id": "shipping-001",
+      "query_type": "semantic",
+      "answerable": true,
+      "refused": false,
+      "expected_sources": [
+        "物流配送说明.md"
+      ],
+      "citation_sources": [
+        "物流配送说明.md"
+      ],
+      "answer_text": "中国大陆主要城市预计二至四个工作日送达。[资料1]",
+      "matched_keywords": [
+        "二至四个工作日"
+      ],
+      "missing_keywords": [],
+      "answered_correctly": true,
+      "refusal_correct": null,
+      "citation_precision": 1.0,
+      "citation_recall": 1.0,
+      "keyword_coverage": 1.0,
+      "error": null
+    },
+    {
+      "case_id": "shipping-002",
+      "query_type": "exact",
+      "answerable": true,
+      "refused": false,
+      "expected_sources": [
+        "物流配送说明.md"
+      ],
+      "citation_sources": [
+        "物流配送说明.md"
+      ],
+      "answer_text": "偏远地区预计五至八个工作日送达。[资料1]",
+      "matched_keywords": [
+        "五至八个工作日"
+      ],
+      "missing_keywords": [],
+      "answered_correctly": true,
+      "refusal_correct": null,
+      "citation_precision": 1.0,
+      "citation_recall": 1.0,
+      "keyword_coverage": 1.0,
+      "error": null
+    },
+    {
+      "case_id": "shipping-003",
+      "query_type": "semantic",
+      "answerable": true,
+      "refused": false,
+      "expected_sources": [
+        "物流配送说明.md"
+      ],
+      "citation_sources": [
+        "物流配送说明.md"
+      ],
+      "answer_text": "物流轨迹连续七十二小时没有更新时，可以联系客服发起物流核查；客服会记录订单号和收件地区，但不会在未核实前承诺赔偿结果。[资料1]",
+      "matched_keywords": [
+        "七十二小时",
+        "物流核查"
+      ],
+      "missing_keywords": [],
+      "answered_correctly": true,
+      "refusal_correct": null,
+      "citation_precision": 1.0,
+      "citation_recall": 1.0,
+      "keyword_coverage": 1.0,
+      "error": null
+    },
+    {
+      "case_id": "warranty-001",
+      "query_type": "exact",
+      "answerable": true,
+      "refused": false,
+      "expected_sources": [
+        "产品质保规则.md"
+      ],
+      "citation_sources": [
+        "产品质保规则.md"
+      ],
+      "answer_text": "机械键盘自签收之日起享受十二个月有限质保。[资料1]",
+      "matched_keywords": [
+        "十二个月"
+      ],
+      "missing_keywords": [],
+      "answered_correctly": true,
+      "refusal_correct": null,
+      "citation_precision": 1.0,
+      "citation_recall": 1.0,
+      "keyword_coverage": 1.0,
+      "error": null
+    },
+    {
+      "case_id": "warranty-002",
+      "query_type": "semantic",
+      "answerable": true,
+      "refused": false,
+      "expected_sources": [
+        "产品质保规则.md"
+      ],
+      "citation_sources": [
+        "产品质保规则.md"
+      ],
+      "answer_text": "键盘进水不属于免费保修范围。根据质保规则，液体进入造成的损坏属于不予质保的情况[资料1]。",
+      "matched_keywords": [
+        "液体进入",
+        "不属于免费保修"
+      ],
+      "missing_keywords": [],
+      "answered_correctly": true,
+      "refusal_correct": null,
+      "citation_precision": 1.0,
+      "citation_recall": 1.0,
+      "keyword_coverage": 1.0,
+      "error": null
+    },
+    {
+      "case_id": "member-001",
+      "query_type": "exact",
+      "answerable": true,
+      "refused": false,
+      "expected_sources": [
+        "会员售后权益.txt"
+      ],
+      "citation_sources": [
+        "会员售后权益.txt"
+      ],
+      "answer_text": "高级会员可以申请一次免费上门取件，但定制商品和超出质保期的商品不适用该权益。[资料1]",
+      "matched_keywords": [
+        "一次",
+        "免费上门取件"
+      ],
+      "missing_keywords": [],
+      "answered_correctly": true,
+      "refusal_correct": null,
+      "citation_precision": 1.0,
+      "citation_recall": 1.0,
+      "keyword_coverage": 1.0,
+      "error": null
+    },
+    {
+      "case_id": "member-002",
+      "query_type": "exact",
+      "answerable": true,
+      "refused": false,
+      "expected_sources": [
+        "会员售后权益.txt"
+      ],
+      "citation_sources": [
+        "会员售后权益.txt"
+      ],
+      "answer_text": "普通会员退货审核通过后，应在七个自然日内寄回商品。[资料1]",
+      "matched_keywords": [
+        "七个自然日"
+      ],
+      "missing_keywords": [],
+      "answered_correctly": true,
+      "refusal_correct": null,
+      "citation_precision": 1.0,
+      "citation_recall": 1.0,
+      "keyword_coverage": 1.0,
+      "error": null
+    },
+    {
+      "case_id": "order-001",
+      "query_type": "semantic",
+      "answerable": true,
+      "refused": false,
+      "expected_sources": [
+        "订单取消与修改规则.md"
+      ],
+      "citation_sources": [
+        "订单取消与修改规则.md"
+      ],
+      "answer_text": "订单已经打包时，不能直接自动取消。根据规则，已经进入拣货或打包流程的订单需由仓库人工确认，不能承诺一定取消成功。[资料1]",
+      "matched_keywords": [
+        "人工确认",
+        "不能承诺"
+      ],
+      "missing_keywords": [],
+      "answered_correctly": true,
+      "refusal_correct": null,
+      "citation_precision": 1.0,
+      "citation_recall": 1.0,
+      "keyword_coverage": 1.0,
+      "error": null
+    },
+    {
+      "case_id": "order-002",
+      "query_type": "multi_source",
+      "answerable": true,
+      "refused": false,
+      "expected_sources": [
+        "订单取消与修改规则.md",
+        "退换货政策.md"
+      ],
+      "citation_sources": [
+        "订单取消与修改规则.md",
+        "退换货政策.md"
+      ],
+      "answer_text": "商品已出库后，订单不能直接取消，用户可以拒收商品，或在签收后按照《退换货政策》申请退货；拒收产生的运费责任根据拒收原因判定，商品质量问题或企业发错货由企业承担，个人原因拒收可能扣除实际运输费用[资料2]。签收后退货适用七天无理由退货：消费者自签收商品次日起七个自然日内可以申请无理由退货，商品须保持完好，包装、配件、赠品和发票齐全，不得影响二次销售[资料1]。因此签收后最晚为自签收次日起七个自然日内申请无理由退货[资料1]。",
+      "matched_keywords": [
+        "拒收",
+        "七个自然日"
+      ],
+      "missing_keywords": [],
+      "answered_correctly": true,
+      "refusal_correct": null,
+      "citation_precision": 1.0,
+      "citation_recall": 1.0,
+      "keyword_coverage": 1.0,
+      "error": null
+    },
+    {
+      "case_id": "order-003",
+      "query_type": "semantic",
+      "answerable": true,
+      "refused": false,
+      "expected_sources": [
+        "订单取消与修改规则.md"
+      ],
+      "citation_sources": [
+        "订单取消与修改规则.md"
+      ],
+      "answer_text": "已提交订单不能直接增加、删除或替换商品，也不能直接修改购买数量。用户应取消原订单后重新下单，促销价格、库存和优惠资格均以重新下单时页面展示为准。[资料1]",
+      "matched_keywords": [
+        "不能直接",
+        "重新下单"
+      ],
+      "missing_keywords": [],
+      "answered_correctly": true,
+      "refusal_correct": null,
+      "citation_precision": 1.0,
+      "citation_recall": 1.0,
+      "keyword_coverage": 1.0,
+      "error": null
+    },
+    {
+      "case_id": "payment-001",
+      "query_type": "semantic",
+      "answerable": true,
+      "refused": false,
+      "expected_sources": [
+        "支付与退款说明.md"
+      ],
+      "citation_sources": [
+        "支付与退款说明.md"
+      ],
+      "answer_text": "同一订单出现两笔或以上成功扣款记录时，用户应提供订单号、支付时间、金额以及支付平台交易号。[资料1]",
+      "matched_keywords": [
+        "支付平台交易号",
+        "订单号"
+      ],
+      "missing_keywords": [],
+      "answered_correctly": true,
+      "refusal_correct": null,
+      "citation_precision": 1.0,
+      "citation_recall": 1.0,
+      "keyword_coverage": 1.0,
+      "error": null
+    },
+    {
+      "case_id": "payment-002",
+      "query_type": "exact",
+      "answerable": true,
+      "refused": false,
+      "expected_sources": [
+        "支付与退款说明.md"
+      ],
+      "citation_sources": [
+        "支付与退款说明.md"
+      ],
+      "answer_text": "银行卡退款通常需要一至五个工作日到账，具体以支付机构处理结果为准。[资料1]",
+      "matched_keywords": [
+        "一至五个工作日"
+      ],
+      "missing_keywords": [],
+      "answered_correctly": true,
+      "refusal_correct": null,
+      "citation_precision": 1.0,
+      "citation_recall": 1.0,
+      "keyword_coverage": 1.0,
+      "error": null
+    },
+    {
+      "case_id": "payment-003",
+      "query_type": "semantic",
+      "answerable": true,
+      "refused": false,
+      "expected_sources": [
+        "支付与退款说明.md"
+      ],
+      "citation_sources": [
+        "支付与退款说明.md"
+      ],
+      "answer_text": "不能。退款原则上退回原支付渠道，不能应用户要求转入其他银行卡或第三方账户。[资料1]",
+      "matched_keywords": [
+        "原支付渠道",
+        "不能"
+      ],
+      "missing_keywords": [],
+      "answered_correctly": true,
+      "refusal_correct": null,
+      "citation_precision": 1.0,
+      "citation_recall": 1.0,
+      "keyword_coverage": 1.0,
+      "error": null
+    },
+    {
+      "case_id": "invoice-001",
+      "query_type": "exact",
+      "answerable": true,
+      "refused": false,
+      "expected_sources": [
+        "发票开具与更正制度.md"
+      ],
+      "citation_sources": [
+        "发票开具与更正制度.md"
+      ],
+      "answer_text": "申请增值税专用发票的企业客户需要提交以下资料：企业名称、纳税人识别号、注册地址、注册电话、开户银行和银行账号。[资料1]",
+      "matched_keywords": [
+        "纳税人识别号",
+        "开户银行"
+      ],
+      "missing_keywords": [],
+      "answered_correctly": true,
+      "refusal_correct": null,
+      "citation_precision": 1.0,
+      "citation_recall": 1.0,
+      "keyword_coverage": 1.0,
+      "error": null
+    },
+    {
+      "case_id": "invoice-002",
+      "query_type": "semantic",
+      "answerable": true,
+      "refused": false,
+      "expected_sources": [
+        "发票开具与更正制度.md"
+      ],
+      "citation_sources": [
+        "发票开具与更正制度.md"
+      ],
+      "answer_text": "发票抬头或税号填写错误时，用户应在开票后三十个自然日内提交更正申请。原发票需要先红冲或作废，再重新开具。[资料1]",
+      "matched_keywords": [
+        "三十个自然日",
+        "红冲"
+      ],
+      "missing_keywords": [],
+      "answered_correctly": true,
+      "refusal_correct": null,
+      "citation_precision": 1.0,
+      "citation_recall": 1.0,
+      "keyword_coverage": 1.0,
+      "error": null
+    },
+    {
+      "case_id": "repair-001",
+      "query_type": "exact",
+      "answerable": true,
+      "refused": false,
+      "expected_sources": [
+        "售后维修服务流程.md"
+      ],
+      "citation_sources": [
+        "售后维修服务流程.md"
+      ],
+      "answer_text": "维修中心签收后通常在三个工作日内完成初检。[资料1]",
+      "matched_keywords": [
+        "三个工作日",
+        "初检"
+      ],
+      "missing_keywords": [],
+      "answered_correctly": true,
+      "refusal_correct": null,
+      "citation_precision": 1.0,
+      "citation_recall": 1.0,
+      "keyword_coverage": 1.0,
+      "error": null
+    },
+    {
+      "case_id": "repair-002",
+      "query_type": "semantic",
+      "answerable": true,
+      "refused": false,
+      "expected_sources": [
+        "售后维修服务流程.md"
+      ],
+      "citation_sources": [
+        "售后维修服务流程.md"
+      ],
+      "answer_text": "不会直接维修。超过质保期的设备，维修中心会先提供报价，用户确认后再进行维修[资料1]。",
+      "matched_keywords": [
+        "提供报价",
+        "确认后"
+      ],
+      "missing_keywords": [],
+      "answered_correctly": true,
+      "refusal_correct": null,
+      "citation_precision": 1.0,
+      "citation_recall": 1.0,
+      "keyword_coverage": 1.0,
+      "error": null
+    },
+    {
+      "case_id": "repair-003",
+      "query_type": "exact",
+      "answerable": true,
+      "refused": false,
+      "expected_sources": [
+        "售后维修服务流程.md"
+      ],
+      "citation_sources": [
+        "售后维修服务流程.md"
+      ],
+      "answer_text": "常规维修预计五至十个工作日，不包含往返物流时间和等待用户确认的时间。[资料1]",
+      "matched_keywords": [
+        "五至十个工作日"
+      ],
+      "missing_keywords": [],
+      "answered_correctly": true,
+      "refusal_correct": null,
+      "citation_precision": 1.0,
+      "citation_recall": 1.0,
+      "keyword_coverage": 1.0,
+      "error": null
+    },
+    {
+      "case_id": "privacy-001",
+      "query_type": "semantic",
+      "answerable": true,
+      "refused": false,
+      "expected_sources": [
+        "账户与隐私安全规范.md"
+      ],
+      "citation_sources": [
+        "账户与隐私安全规范.md"
+      ],
+      "answer_text": "不可以。客服不得向用户索取完整密码、短信验证码、银行卡密码或支付平台口令。[资料1]",
+      "matched_keywords": [
+        "不得",
+        "短信验证码"
+      ],
+      "missing_keywords": [],
+      "answered_correctly": true,
+      "refusal_correct": null,
+      "citation_precision": 1.0,
+      "citation_recall": 1.0,
+      "keyword_coverage": 1.0,
+      "error": null
+    },
+    {
+      "case_id": "privacy-002",
+      "query_type": "semantic",
+      "answerable": true,
+      "refused": false,
+      "expected_sources": [
+        "账户与隐私安全规范.md"
+      ],
+      "citation_sources": [
+        "账户与隐私安全规范.md"
+      ],
+      "answer_text": "系统检测到异地设备、短时间内多次失败登录或异常批量操作时，可以临时限制账户[资料1]。用户申请解除限制，需要验证绑定手机号，并说明最近登录设备和操作情况[资料1]。无法通过验证时应转交账户安全专员处理[资料1]。",
+      "matched_keywords": [
+        "验证绑定手机号",
+        "安全专员"
+      ],
+      "missing_keywords": [],
+      "answered_correctly": true,
+      "refusal_correct": null,
+      "citation_precision": 1.0,
+      "citation_recall": 1.0,
+      "keyword_coverage": 1.0,
+      "error": null
+    },
+    {
+      "case_id": "promotion-001",
+      "query_type": "semantic",
+      "answerable": true,
+      "refused": false,
+      "expected_sources": [
+        "优惠券与促销活动规则.md"
+      ],
+      "citation_sources": [
+        "优惠券与促销活动规则.md"
+      ],
+      "answer_text": "未支付订单关闭后，尚在有效期内的优惠券通常在十分钟内自动返还[资料1]。返还时必须满足的条件是优惠券尚在有效期内[资料1]。",
+      "matched_keywords": [
+        "十分钟",
+        "有效期"
+      ],
+      "missing_keywords": [],
+      "answered_correctly": true,
+      "refusal_correct": null,
+      "citation_precision": 1.0,
+      "citation_recall": 1.0,
+      "keyword_coverage": 1.0,
+      "error": null
+    },
+    {
+      "case_id": "promotion-002",
+      "query_type": "semantic",
+      "answerable": true,
+      "refused": false,
+      "expected_sources": [
+        "优惠券与促销活动规则.md"
+      ],
+      "citation_sources": [
+        "优惠券与促销活动规则.md"
+      ],
+      "answer_text": "订单使用满减优惠后发生部分退货，退款金额按照各商品实际分摊后的支付金额计算。退货导致订单不再满足赠品条件时，赠品应保持完好并一并退回；赠品无法退回的，可以从退款中扣除其公示价值。[资料1]",
+      "matched_keywords": [
+        "赠品",
+        "一并退回"
+      ],
+      "missing_keywords": [],
+      "answered_correctly": true,
+      "refusal_correct": null,
+      "citation_precision": 1.0,
+      "citation_recall": 1.0,
+      "keyword_coverage": 1.0,
+      "error": null
+    },
+    {
+      "case_id": "promotion-003",
+      "query_type": "exact",
+      "answerable": true,
+      "refused": false,
+      "expected_sources": [
+        "优惠券与促销活动规则.md"
+      ],
+      "citation_sources": [
+        "优惠券与促销活动规则.md"
+      ],
+      "answer_text": "用户应在订单支付后七个自然日内申请价格保护。[资料1]",
+      "matched_keywords": [
+        "七个自然日"
+      ],
+      "missing_keywords": [],
+      "answered_correctly": true,
+      "refusal_correct": null,
+      "citation_precision": 1.0,
+      "citation_recall": 1.0,
+      "keyword_coverage": 1.0,
+      "error": null
+    },
+    {
+      "case_id": "enterprise-001",
+      "query_type": "exact",
+      "answerable": true,
+      "refused": false,
+      "expected_sources": [
+        "企业采购服务说明.md"
+      ],
+      "citation_sources": [
+        "企业采购服务说明.md"
+      ],
+      "answer_text": "单次采购金额达到五万元时，可以申请项目报价。[资料1]",
+      "matched_keywords": [
+        "五万元"
+      ],
+      "missing_keywords": [],
+      "answered_correctly": true,
+      "refusal_correct": null,
+      "citation_precision": 1.0,
+      "citation_recall": 1.0,
+      "keyword_coverage": 1.0,
+      "error": null
+    },
+    {
+      "case_id": "enterprise-002",
+      "query_type": "semantic",
+      "answerable": true,
+      "refused": false,
+      "expected_sources": [
+        "企业采购服务说明.md"
+      ],
+      "citation_sources": [
+        "企业采购服务说明.md"
+      ],
+      "answer_text": "企业客户需合作满六个月且历史回款正常，才可以申请账期[资料1]。账期额度和期限需要经过信用审核，不因销售人员口头承诺自动生效[资料1]。",
+      "matched_keywords": [
+        "六个月",
+        "信用审核"
+      ],
+      "missing_keywords": [],
+      "answered_correctly": true,
+      "refusal_correct": null,
+      "citation_precision": 1.0,
+      "citation_recall": 1.0,
+      "keyword_coverage": 1.0,
+      "error": null
+    },
+    {
+      "case_id": "ticket-001",
+      "query_type": "exact",
+      "answerable": true,
+      "refused": false,
+      "expected_sources": [
+        "客服工单处理规范.md"
+      ],
+      "citation_sources": [
+        "客服工单处理规范.md"
+      ],
+      "answer_text": "P1工单应在十五分钟内响应，并立即升级值班负责人。[资料1]",
+      "matched_keywords": [
+        "十五分钟"
+      ],
+      "missing_keywords": [],
+      "answered_correctly": true,
+      "refusal_correct": null,
+      "citation_precision": 1.0,
+      "citation_recall": 1.0,
+      "keyword_coverage": 1.0,
+      "error": null
+    },
+    {
+      "case_id": "ticket-002",
+      "query_type": "exact",
+      "answerable": true,
+      "refused": false,
+      "expected_sources": [
+        "客服工单处理规范.md"
+      ],
+      "citation_sources": [
+        "客服工单处理规范.md"
+      ],
+      "answer_text": "退款延迟通常应设为P2优先级。[资料1]",
+      "matched_keywords": [
+        "P2"
+      ],
+      "missing_keywords": [],
+      "answered_correctly": true,
+      "refusal_correct": null,
+      "citation_precision": 1.0,
+      "citation_recall": 1.0,
+      "keyword_coverage": 1.0,
+      "error": null
+    },
+    {
+      "case_id": "ticket-003",
+      "query_type": "semantic",
+      "answerable": true,
+      "refused": false,
+      "expected_sources": [
+        "客服工单处理规范.md"
+      ],
+      "citation_sources": [
+        "客服工单处理规范.md"
+      ],
+      "answer_text": "可以。用户在工单关闭后七个自然日内反馈同一问题仍然存在时，可以重开原工单，以避免重复创建导致上下文丢失。[资料1]",
+      "matched_keywords": [
+        "七个自然日",
+        "重开"
+      ],
+      "missing_keywords": [],
+      "answered_correctly": true,
+      "refusal_correct": null,
+      "citation_precision": 1.0,
+      "citation_recall": 1.0,
+      "keyword_coverage": 1.0,
+      "error": null
+    },
+    {
+      "case_id": "cross-001",
+      "query_type": "multi_source",
+      "answerable": true,
+      "refused": false,
+      "expected_sources": [
+        "会员售后权益.txt",
+        "退换货政策.md"
+      ],
+      "citation_sources": [
+        "会员售后权益.txt",
+        "退换货政策.md"
+      ],
+      "answer_text": "高级会员收到故障商品后，不能跳过人工审核流程，会员等级不会改变质量问题的判定标准，也不会跳过人工审核流程[资料1]。用户应在签收后四十八小时内提交订单号、问题描述以及清晰照片或视频[资料2]。",
+      "matched_keywords": [
+        "不会",
+        "四十八小时",
+        "照片或视频"
+      ],
+      "missing_keywords": [],
+      "answered_correctly": true,
+      "refusal_correct": null,
+      "citation_precision": 1.0,
+      "citation_recall": 1.0,
+      "keyword_coverage": 1.0,
+      "error": null
+    },
+    {
+      "case_id": "cross-002",
+      "query_type": "multi_source",
+      "answerable": true,
+      "refused": false,
+      "expected_sources": [
+        "订单取消与修改规则.md",
+        "支付与退款说明.md"
+      ],
+      "citation_sources": [
+        "支付与退款说明.md",
+        "订单取消与修改规则.md"
+      ],
+      "answer_text": "已支付订单取消成功后，退款一般在两个工作日内提交[资料1][资料2]。退款提交成功不代表资金已经到账，到账时间因支付渠道而异：支付宝和微信通常需要一至三个工作日，银行卡通常需要一至五个工作日，具体以支付机构处理结果为准[资料1]。",
+      "matched_keywords": [
+        "两个工作日",
+        "一至五个工作日"
+      ],
+      "missing_keywords": [],
+      "answered_correctly": true,
+      "refusal_correct": null,
+      "citation_precision": 1.0,
+      "citation_recall": 1.0,
+      "keyword_coverage": 1.0,
+      "error": null
+    },
+    {
+      "case_id": "unknown-001",
+      "query_type": "unanswerable",
+      "answerable": false,
+      "refused": true,
+      "expected_sources": [],
+      "citation_sources": [],
+      "answer_text": "抱歉，当前知识库中没有足够可靠的资料回答这个问题。",
+      "matched_keywords": [],
+      "missing_keywords": [],
+      "answered_correctly": false,
+      "refusal_correct": true,
+      "citation_precision": 0.0,
+      "citation_recall": 0.0,
+      "keyword_coverage": 0.0,
+      "error": null
+    },
+    {
+      "case_id": "unknown-002",
+      "query_type": "unanswerable",
+      "answerable": false,
+      "refused": true,
+      "expected_sources": [],
+      "citation_sources": [],
+      "answer_text": "抱歉，当前知识库中没有足够可靠的资料回答这个问题。",
+      "matched_keywords": [],
+      "missing_keywords": [],
+      "answered_correctly": false,
+      "refusal_correct": true,
+      "citation_precision": 0.0,
+      "citation_recall": 0.0,
+      "keyword_coverage": 0.0,
+      "error": null
+    },
+    {
+      "case_id": "unknown-003",
+      "query_type": "unanswerable",
+      "answerable": false,
+      "refused": true,
+      "expected_sources": [],
+      "citation_sources": [],
+      "answer_text": "抱歉，当前知识库中没有足够可靠的资料回答这个问题。",
+      "matched_keywords": [],
+      "missing_keywords": [],
+      "answered_correctly": false,
+      "refusal_correct": true,
+      "citation_precision": 0.0,
+      "citation_recall": 0.0,
+      "keyword_coverage": 0.0,
+      "error": null
+    },
+    {
+      "case_id": "unknown-004",
+      "query_type": "unanswerable",
+      "answerable": false,
+      "refused": true,
+      "expected_sources": [],
+      "citation_sources": [],
+      "answer_text": "抱歉，当前知识库中没有足够可靠的资料回答这个问题。",
+      "matched_keywords": [],
+      "missing_keywords": [],
+      "answered_correctly": false,
+      "refusal_correct": true,
+      "citation_precision": 0.0,
+      "citation_recall": 0.0,
+      "keyword_coverage": 0.0,
+      "error": null
+    },
+    {
+      "case_id": "unknown-005",
+      "query_type": "unanswerable",
+      "answerable": false,
+      "refused": true,
+      "expected_sources": [],
+      "citation_sources": [],
+      "answer_text": "抱歉，当前知识库中没有足够可靠的资料回答这个问题。",
+      "matched_keywords": [],
+      "missing_keywords": [],
+      "answered_correctly": false,
+      "refusal_correct": true,
+      "citation_precision": 0.0,
+      "citation_recall": 0.0,
+      "keyword_coverage": 0.0,
+      "error": null
+    },
+    {
+      "case_id": "unknown-006",
+      "query_type": "unanswerable",
+      "answerable": false,
+      "refused": true,
+      "expected_sources": [],
+      "citation_sources": [],
+      "answer_text": "抱歉，当前知识库中没有足够可靠的资料回答这个问题。",
+      "matched_keywords": [],
+      "missing_keywords": [],
+      "answered_correctly": false,
+      "refusal_correct": true,
+      "citation_precision": 0.0,
+      "citation_recall": 0.0,
+      "keyword_coverage": 0.0,
+      "error": null
+    }
+  ],
+  "configuration": {
+    "embedding_model": "BAAI/bge-small-zh-v1.5",
+    "rerank_model": "cross-encoder/mmarco-mMiniLMv2-L12-H384-v1",
+    "llm_model": "deepseek-flash",
+    "top_k": 5,
+    "min_relevance": 0.05,
+    "max_context_chars": 6000,
+    "max_chunks_per_source": 2
+  }
+}
