@@ -8,6 +8,9 @@ htmlcov/
 venv/
 .env
 data/chroma/
+evaluation/results/*
+!evaluation/results/retrieval_report.json
+!evaluation/results/rag_report.json
 *.log
 .DS_Store
 Thumbs.db

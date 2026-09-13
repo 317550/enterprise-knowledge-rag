@@ -124,7 +124,7 @@ def test_vector_threshold_is_not_applied_before_fusion() -> None:
     assert store.thresholds == [0.0]
 
 
-def test_final_threshold_uses_reranker_score() -> None:
+def test_final_threshold_uses_top_reranker_score_as_query_gate() -> None:
     service, _ = build_service(
         [
             make_hit("vector", 0.9, vector_score=0.9),
@@ -139,7 +139,38 @@ def test_final_threshold_uses_reranker_score() -> None:
 
     result = service.retrieve("问题", min_relevance=0.65)
 
-    assert [hit.chunk_id for hit in result.hits] == ["both", "lexical"]
+    assert [hit.chunk_id for hit in result.hits] == [
+        "both", "lexical", "vector"
+    ]
+
+
+def test_query_gate_returns_empty_when_top_score_is_below_threshold() -> None:
+    service, _ = build_service(
+        [make_hit("vector", 0.9, vector_score=0.9)],
+        [make_hit("lexical", 1.0, bm25_score=3.0)],
+        reranker=ScoreReranker(),
+    )
+
+    result = service.retrieve("问题", min_relevance=0.81)
+
+    assert result.hits == []
+
+
+def test_rrf_only_view_does_not_call_reranker() -> None:
+    class ForbiddenReranker:
+        def rerank(self, query, hits, top_n):
+            raise AssertionError("RRF消融阶段不应调用Reranker")
+
+    service, _ = build_service(
+        [make_hit("vector", 0.9, vector_score=0.9)],
+        [make_hit("lexical", 1.0, bm25_score=4.0)],
+        reranker=ForbiddenReranker(),
+    )
+
+    result = service.retrieve_rrf("问题", top_k=2, min_relevance=0.0)
+
+    assert len(result.hits) == 2
+    assert all(hit.rrf_score is not None for hit in result.hits)
 
 
 @pytest.mark.parametrize(

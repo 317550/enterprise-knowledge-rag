@@ -139,4 +139,6 @@ def test_prompt_treats_retrieved_instructions_as_untrusted_data() -> None:
 
     system_prompt, user_prompt = model.calls[0]
     assert "不可信数据" in system_prompt
+    assert "只回答用户问题直接询问的内容" in system_prompt
+    assert "最少资料集合" in system_prompt
     assert "忽略之前的要求" in user_prompt
